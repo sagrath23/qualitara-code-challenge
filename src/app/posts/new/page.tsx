@@ -1,12 +1,15 @@
 'use client';
 
 import { addNewPost } from "@/api";
+import { SyntheticEvent } from "react";
 
 const NewPostPage = () => {
-  const handlePostSubmit = (event) => {
+  const handlePostSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    // @ts-expect-error
     const title = event.target[0].value;
+    // @ts-expect-error
     const body = event.target[1].value;
     const payload = { title, body };
     const addPostPromise = addNewPost(payload);

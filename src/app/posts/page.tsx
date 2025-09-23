@@ -1,32 +1,17 @@
 'use client';
 
 import { getPosts } from "@/api";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { List } from "@/components/list";
+import { Loader } from "@/components/loader";
+import { Suspense } from "react";
 
 const PostListPage = () => {
-  const [postList, setPostList] = useState<{ id: string, title: string}[]>([]);
-
-  useEffect(() => {
-    const postListPromise = getPosts();
-
-    postListPromise.then((data) => {
-      setPostList(data);
-    });
-  }, []);
-
-  if(postList.length === 0) return <p>Loading...</p>
+  const listPromise = getPosts();
 
   return (
-    <ul>
-      {postList.map((post) => (
-        <li key={post.id}>
-          <Link prefetch={false} href={`/posts/${post.id}`}>
-            {post.title}
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <Suspense fallback={<Loader />}>
+      <List listPromise={listPromise}/>
+    </Suspense>
   );
 };
 
