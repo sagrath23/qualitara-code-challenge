@@ -8,6 +8,12 @@ export const getPosts = async () =>{
   return response.json();
 };
 
+export const getUserDetailsByUserId = async (id: string) => {
+  const response = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
+
+  return response.json();
+}
+
 export const getPostById = async (id: string) => {
   const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
 
